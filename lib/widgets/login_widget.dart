@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../database/database.dart';
+import 'home_widget.dart';
 
 
 class LoginWidget extends StatefulWidget {
@@ -23,8 +24,9 @@ class _LoginWidgetState extends State<LoginWidget> {
       );
     }
     else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Giriş Başarılı"))
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeWidget(user: user)),
       );
     }
   }

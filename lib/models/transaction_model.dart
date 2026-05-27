@@ -22,6 +22,6 @@ class TransactionModel {
   }
 
   factory TransactionModel.fromMap(Map<String, dynamic> map) {
-    return TransactionModel(id: map['id'], userId: map['userId'], title: map['title'], amount: map['amount'], type: map['type'], category: map['category'], date: map['date']);
+    return TransactionModel(id: map['id'], userId: map['userId'] ?? 0, title: map['title'], amount: map['amount'], type: map['type'], category: map['category'], date: map['date']);
   }
 }
