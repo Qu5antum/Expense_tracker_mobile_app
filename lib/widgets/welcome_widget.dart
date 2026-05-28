@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/login_widget.dart';
+import 'login_widget.dart';
+import 'register_widget.dart';
 
 class WelcomeWidget extends StatelessWidget {
   const WelcomeWidget({super.key});
@@ -62,37 +63,94 @@ class WelcomeWidget extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              // Düğme
+              // Düğmeler
 
-              SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF4F46E5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(18),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const LoginWidget(),
+              Column(
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: 60,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 8,
+                        backgroundColor: const Color(0xFF4F46E5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
                       ),
-                    );
-                  },
-                  child: const Text(
-                    "Başlayın",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RegisterWidget(),
+                          ),
+                        );
+                      },
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.person_add,
+                            color: Colors.white,
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            "Hesap Oluştur",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
+
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 60,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                          color: Color(0xFF4F46E5),
+                          width: 2,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const LoginWidget(),
+                          ),
+                        );
+                      },
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.login,
+                            color: Color(0xFF4F46E5),
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            "Giriş Yap",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color(0xFF4F46E5),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 30),
             ],
