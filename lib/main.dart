@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-import 'widgets/login_widget.dart';
 import 'database/database.dart';
+import 'widgets/welcome_widget.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: const Color.fromARGB(255, 81, 165, 225)),
       ),
-      home: LoginWidget()
+      home: const WelcomeWidget()
     );
   }
 }
