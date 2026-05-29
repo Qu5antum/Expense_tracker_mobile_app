@@ -2,8 +2,9 @@ import 'package:expense_tracker/widgets/add_transaction_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../database/database.dart';
-import 'package:expense_tracker/models/transaction_model.dart';
-import 'package:expense_tracker/models/user_model.dart';
+import '../models/transaction_model.dart';
+import '../models/user_model.dart';
+import 'profile_widget.dart';
 
 
 class HomeWidget extends StatefulWidget {
@@ -81,17 +82,12 @@ class _HomeWidgetState extends State<HomeWidget> {
         actions: [
           IconButton(
             onPressed: () {
-              /* TODO: page settings*/
-            },
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.black,
-            ),
-          ),
-
-          IconButton(
-            onPressed: () {
-              /* TODO: page account*/
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileWidget(user: widget.user,),
+                ),
+              );
             },
             icon: const Icon(
               Icons.account_circle,
@@ -212,65 +208,100 @@ class _HomeWidgetState extends State<HomeWidget> {
                       itemBuilder: (context, index) {
                         final transaction = transactions[index];
                         final isIncome = transaction.type == 'income';
-
-                        return Container(
-                          margin: const EdgeInsets.only(
-                            bottom: 12,
+                        
+                        return Dismissible(
+                          key: Key(
+                            transaction.id.toString(),
                           ),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.circular(16,),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
-                                blurRadius: 10,
-                                offset: const Offset(
-                                  0,
-                                  4,
+                          direction: DismissDirection.endToStart,
+                          background: Container(
+                            alignment: Alignment.centerRight,
+                            padding: const EdgeInsets.only(
+                              right: 20,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius:
+                                  BorderRadius.circular(16),
+                            ),
+                            child: const Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                          ),
+                          onDismissed: (direction) async {
+                            await DatabaseHelper.instance.deleteTransaction(
+                              transaction.id!,
+                            );
+                            loadTransactions();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  "İşlem silindi",
                                 ),
                               ),
-                            ],
-                          ),
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor:
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(
+                              bottom: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.circular(16,),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.05),
+                                  blurRadius: 10,
+                                  offset: const Offset(
+                                    0,
+                                    4,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor:
+                                    isIncome
+                                        ? Colors.green
+                                            .withOpacity(
+                                            0.15,
+                                          )
+                                        : Colors.red
+                                            .withOpacity(
+                                            0.15,
+                                          ),
+                                child: Icon(
                                   isIncome
+                                      ? Icons.arrow_downward
+                                      : Icons.arrow_upward,
+                                  color: isIncome
                                       ? Colors.green
-                                          .withOpacity(
-                                          0.15,
-                                        )
-                                      : Colors.red
-                                          .withOpacity(
-                                          0.15,
-                                        ),
-                              child: Icon(
-                                isIncome
-                                    ? Icons.arrow_downward
-                                    : Icons.arrow_upward,
-                                color: isIncome
-                                    ? Colors.green
-                                    : Colors.red,
+                                      : Colors.red,
+                                ),
                               ),
-                            ),
-                            title: Text(
-                              transaction.title,
-                              style: const TextStyle(
-                                fontWeight:
-                                    FontWeight.bold,
+                              title: Text(
+                                transaction.title,
+                                style: const TextStyle(
+                                  fontWeight:
+                                      FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            subtitle: Text(
-                              transaction.category,
-                            ),
-                            trailing: Text(
-                              "${isIncome ? '+' : '-'}${transaction.amount.toStringAsFixed(2)} ₺",
-                              style: TextStyle(
-                                color: isIncome
-                                    ? Colors.green
-                                    : Colors.red,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                              subtitle: Text(
+                                transaction.category,
+                              ),
+                              trailing: Text(
+                                "${isIncome ? '+' : '-'}${transaction.amount.toStringAsFixed(2)} ₺",
+                                style: TextStyle(
+                                  color: isIncome
+                                      ? Colors.green
+                                      : Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
                           ),

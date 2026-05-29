@@ -96,4 +96,10 @@ class DatabaseHelper {
 
     return UserModel.fromMap(result.first);
   }
+
+  Future<int> deleteTransaction (int id) async {
+    final db = await instance.database;
+
+    return await db.delete('transactions', where: 'id == ?', whereArgs: [id]);
+  }
 }

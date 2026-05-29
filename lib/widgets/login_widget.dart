@@ -37,6 +37,12 @@ class _LoginWidgetState extends State<LoginWidget> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text("Giriş"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Column(
         children: [
@@ -49,7 +55,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               decoration: InputDecoration(
                 hintText: "Kullanıcı adı: ",
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Color.fromARGB(255, 108, 104, 193),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5))
                 ),
@@ -64,7 +70,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               decoration: InputDecoration(
                 hintText: "Şifre: ",
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Color.fromARGB(255, 108, 104, 193),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5))
                 ),

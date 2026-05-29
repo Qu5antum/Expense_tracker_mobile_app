@@ -69,6 +69,12 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Kayıt Ol"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
 
       body: Column(
@@ -84,7 +90,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               decoration: const InputDecoration(
                 hintText:"Kullanıcı adı: ",
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Color.fromARGB(255, 108, 104, 193),
                 border: OutlineInputBorder(
                   borderRadius:BorderRadius.all(Radius.circular(5),),
                 ),
@@ -100,7 +106,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               decoration: const InputDecoration(
                 hintText: "Şifre: ",
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Color.fromARGB(255, 108, 104, 193),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5),),
                 ),
@@ -115,7 +121,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               decoration: const InputDecoration(
                 hintText: "Şifre tekrar: ",
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Color.fromARGB(255, 108, 104, 193),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5),),
                 ),
